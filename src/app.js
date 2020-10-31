@@ -2,7 +2,7 @@ const electron = require("electron");
 const fs = require("fs");
 const PDFDocument = require("pdfkit");
 const express = require("express");
-const { app, BrowserWindow, Menu } = electron;
+const { app, BrowserWindow, Menu, MenuItem } = electron;
 const url = require("url");
 const path = require("path");
 
@@ -11,10 +11,12 @@ const path = require("path");
 const measures = require("./measures");
 const patterns = require("./patterns");
 
+let win;
+
 function createWindow() {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+  win = new BrowserWindow({
+    //width: 800,
+    //height: 600,
     webPreferences: {
       nodeIntegration: true,
     },
@@ -61,6 +63,7 @@ let createPattern = function () {
   patterns.drawPatternBodice(doc, pointsBodice);
   patterns.drawPointLabels(doc, pointsBodice);
   //doc.pipe(res);
+  doc.pipe(fs.createWriteStream("file.pdf"));
   doc.end();
 };
 
@@ -73,6 +76,13 @@ const mainMenuTemplate = [
         accelerator: process.platform == "darwin" ? "Cmd + G" : "Ctrl + G",
         click() {
           createPattern();
+        },
+      },
+      {
+        label: "Refresh",
+        accelerator: process.platform == "darwin" ? "Cmd + R" : "Ctrl + R",
+        click() {
+          win.reload();
         },
       },
       {

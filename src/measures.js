@@ -21,7 +21,7 @@ marenInput.lg = 106;
 marenInput.bt1 = 29;
 marenInput.vl1 = 48;
 
-let input = exampleInput;
+let input = marenInput;
 
 let getValues = function () {
   let values = {};
