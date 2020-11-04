@@ -12,14 +12,14 @@ exampleInput.bt1 = 34;
 exampleInput.vl1 = 52;
 
 let marenInput = {};
-marenInput.kh = 198;
+marenInput.kh = 189;
 marenInput.bu = 93; // Needs to be between 80 and 146
 marenInput.tu = 74;
 marenInput.hu = 105;
 marenInput.alg = 67;
 marenInput.lg = 106;
-marenInput.bt1 = 29;
-marenInput.vl1 = 48;
+marenInput.bt1 = 34;
+marenInput.vl1 = 52;
 
 let input = marenInput;
 

@@ -5,6 +5,7 @@ const express = require("express");
 const { app, BrowserWindow, Menu, MenuItem } = electron;
 const url = require("url");
 const path = require("path");
+const { MongoClient, ObjectId } = require("mongodb");
 
 //const app = express();
 
@@ -23,7 +24,7 @@ function createWindow() {
   });
 
   win.loadFile("./src/index.html");
-  win.webContents.openDevTools();
+  //win.webContents.openDevTools();
 }
 
 function createMenu() {
@@ -50,7 +51,7 @@ app.on("activate", () => {
   }
 });
 
-let createPattern = function () {
+let createBodice = function () {
   const doc = new PDFDocument({
     layout: "portrait",
     size: "2A0",
@@ -67,6 +68,50 @@ let createPattern = function () {
   doc.end();
 };
 
+let connectToDB = async function () {
+  const uri =
+    "mongodb+srv://admin:cusvLuOSsnq7kATe@cluster0.d9ufi.mongodb.net/sewing-pattern?retryWrites=true&w=majority";
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  // client.connect((err) => {
+  //   const collection = client.db("sewing_pattern").collection("measurements");
+  //   // perform actions on the collection object
+  //   console.log("Collection: ", collection);
+  //   client.close();
+  // });
+
+  try {
+    await client.connect();
+
+    //await listDatabases(client);
+    const db = client.db("sewing_pattern");
+    console.log("DB: ", db);
+    const measurements = db.collection("measurements");
+    const results = await measurements
+      .find(ObjectId("5f9e998e477b8f84a38d4cb2"))
+      .toArray();
+
+    console.log("Results: ", results);
+    // await measurements.insertOne({
+    //   a: 45,
+    //   b: 78,
+    // });
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+};
+
+async function listDatabases(client) {
+  databasesList = await client.db().admin().listDatabases();
+
+  console.log("Databases:");
+  databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
+}
+
 const mainMenuTemplate = [
   {
     label: "File",
@@ -75,7 +120,8 @@ const mainMenuTemplate = [
         label: "Generate",
         accelerator: process.platform == "darwin" ? "Cmd + G" : "Ctrl + G",
         click() {
-          createPattern();
+          createBodice();
+          //connectToDB().catch(console.error);
         },
       },
       {

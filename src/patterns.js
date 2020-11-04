@@ -12,6 +12,8 @@ let getPointsPatternBodice = function (values) {
   let frontBackSpacing = 20;
   let referencePoint = [10, 10];
 
+  let offset = 0;
+
   points[1] = referencePoint;
   points[2] = [points[1][0], points[1][1] + values.rh];
   points[3] = [points[1][0], points[1][1] + values.rl];
@@ -54,6 +56,7 @@ let getPointsPatternBodice = function (values) {
   points[22] = [points[12][0], points[21][1]];
   points[23] = [points[12][0], points[18][1] + 2];
   points[24] = [points[14][0], points[3][1]];
+
   points[25] = [points[24][0], points[24][1] - values.vl2];
   points[26] = [points[25][0], points[25][1] + values.bt2];
 
@@ -107,21 +110,48 @@ let getPointsPatternBodice = function (values) {
   ];
   points[41] = [points[37][0], points[4][1]];
   points[42] = [points[26][0], points[4][1]];
-  points[43] = [points[11][0] - 1.5, points[6][1] - 1];
-  points["43A"] = [points["11A"][0] + 1.5, points[6][1] - 1];
-  points[44] = [
-    points[11][0] + (points[7][0] - points[40][0]) / 2,
-    points[4][1],
-  ];
-  points["44A"] = [
-    points["11A"][0] - (points[7][0] - points[40][0]) / 2,
-    points[4][1],
-  ];
+
+  let tuTakeAway = dist(points[36], points[6]) / 5;
+  let huAddOn = dist(points[7], points[40]) / 2;
+
+  points[43] = [points[11][0] - tuTakeAway, points[6][1] - 1];
+  points["43A"] = [points["11A"][0] + tuTakeAway, points[6][1] - 1];
+  points[44] = [points[11][0] + huAddOn, points[4][1]];
+  points["44A"] = [points["11A"][0] - huAddOn, points[4][1]];
   points[45] = [points[44][0], points[8][1]];
   points["45A"] = [points["44A"][0], points[8][1]];
-  // points[46] = [points[][0], points[8][1]];
-  // points[47] = [points[][0], points[8][1]];
+
   points[48] = [points[13][0], points[8][1]];
+
+  offset = dist(points[35], points[37]) / 2;
+
+  points["24A"] = [points[24][0] + offset, points[24][1]];
+  points["24B"] = [points[24][0] - offset, points[24][1]];
+
+  offset = 0.5 * dist(points[39], points[41]);
+  points["42A"] = [points[42][0] + offset, points[42][0]];
+  points["42B"] = [points[42][0] - offset, points[42][0]];
+
+  points[46] = [points["42B"][0], points[8][1]];
+  points[47] = [points["42A"][0], points[8][1]];
+
+  points[49] = [points[10][0], points[6][1] - 0.5];
+  points["49A"] = [points[10][0] + tuTakeAway / 2, points[6][1] - 0.5];
+  points["49B"] = [points[10][0] - tuTakeAway / 2, points[6][1] - 0.5];
+  points["50B"] = [points[6][0] + (1 / 3) * values.rb + 1, points[6][1]];
+  points["50A"] = [points["50B"][0] + 2 * tuTakeAway, points[6][1]];
+  points[50] = [(points["50B"][0] + points["50A"][0]) / 2, points[6][1]];
+  points[51] = [points[50][0], points[15][1]];
+  points[52] = [points[50][0], points[50][1] - 15];
+  points[53] = [points[50][0], points[50][1] + 15];
+  points[54] = [points[49][0], points[49][1] - 13];
+  points[55] = [points[49][0], points[49][1] + 13];
+  points[56] = [
+    points[51][0],
+    points[18][1] + 0.5 * dist(points[18], points[10]),
+  ];
+  points[57] = [points[19][0], points[56][1] - 0.75];
+  points[58] = [points[19][0], points[56][1] + 0.75];
 
   return points;
 };
@@ -135,7 +165,7 @@ let drawPatternBodice = function (doc, points) {
   draw.drawLine(doc, points[1], points[5], thin);
   draw.drawLine(doc, points[1], points[17], thin);
   draw.drawLine(doc, points[15], points[16], thin);
-  draw.drawLine(doc, points[17], points[10], thin);
+  draw.drawLine(doc, points[17], points[55], thin);
   draw.drawLine(doc, points[20], points[21], thin);
   draw.drawLine(doc, points[2], points[11], thin);
   draw.drawLine(doc, points[36], points[35], thin);
@@ -249,6 +279,25 @@ let drawPatternBodice = function (doc, points) {
   );
 
   draw.drawPath(doc, path, thick);
+  draw.drawLine(doc, points[26], points["24A"], thick);
+  draw.drawLine(doc, points["42A"], points["24A"], thick);
+  draw.drawLine(doc, points["42A"], points[47], thick);
+  draw.drawLine(doc, points[26], points["24B"], thick);
+  draw.drawLine(doc, points["42B"], points["24B"], thick);
+  draw.drawLine(doc, points["42B"], points[46], thick);
+
+  draw.drawLine(doc, points[51], points[53], thin);
+  draw.drawLine(doc, points[52], points["50B"], thick);
+  draw.drawLine(doc, points[53], points["50B"], thick);
+  draw.drawLine(doc, points[53], points["50A"], thick);
+  draw.drawLine(doc, points[52], points["50A"], thick);
+  draw.drawLine(doc, points[54], points["49B"], thick);
+  draw.drawLine(doc, points[55], points["49B"], thick);
+  draw.drawLine(doc, points[55], points["49A"], thick);
+  draw.drawLine(doc, points[54], points["49A"], thick);
+  draw.drawLine(doc, points[56], points[57], thick);
+  draw.drawLine(doc, points[56], points[58], thick);
+  draw.drawLine(doc, points["49A"], points["49B"], thin);
 
   //draw.drawLine(doc, points[31], points[30], thick);
 };
