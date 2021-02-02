@@ -7,6 +7,9 @@ let bu20 = 116;
 let bu25 = 128;
 let bu30 = 146;
 
+//TODO: for rh, rb, ad bb, bu: Use column name as input 'category'.
+//Then take the right value in the table. These values get added at the end of the calculation.
+
 let rh = function (bu) {
   if (bu >= bu10 && bu < bu20) {
     return bu / 10 + 11;
@@ -46,10 +49,11 @@ let bt2 = function (bu) {
 };
 
 let vl2 = function (rl, bu) {
+  // TODO: Make linear function
   let overSize = bu >= 100 ? bu - 100 : 0;
 
   if (bu >= bu10 && bu < bu13) {
-    return rl + (3.4 + 4) / 2;
+    return rl + (3.5 + 4) / 2;
   }
 
   if (bu >= bu13 && bu < bu20) {

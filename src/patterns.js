@@ -111,7 +111,7 @@ let getPointsPatternBodice = function (values) {
   points[41] = [points[37][0], points[4][1]];
   points[42] = [points[26][0], points[4][1]];
 
-  let tuTakeAway = dist(points[36], points[6]) / 5;
+  let tuTakeAway = dist(points[36], points[6]) / 5; //TODO: Shorten sides 1.5 fix & darts with 1 / 3 and 2 / 3
   let huAddOn = dist(points[7], points[40]) / 2;
 
   points[43] = [points[11][0] - tuTakeAway, points[6][1] - 1];
@@ -129,6 +129,7 @@ let getPointsPatternBodice = function (values) {
   points["24B"] = [points[24][0] - offset, points[24][1]];
 
   offset = 0.5 * dist(points[39], points[41]);
+  //TODO: Darts symmetrically and check 39 and 41
   points["42A"] = [points[42][0] + offset, points[42][0]];
   points["42B"] = [points[42][0] - offset, points[42][0]];
 

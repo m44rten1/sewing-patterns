@@ -8,8 +8,8 @@ exampleInput.tu = 74;
 exampleInput.hu = 98;
 exampleInput.alg = 60;
 exampleInput.lg = 106;
-exampleInput.bt1 = 34;
-exampleInput.vl1 = 52;
+// exampleInput.bt1 = 34;
+// exampleInput.vl1 = 52;
 
 let marenInput = {};
 marenInput.kh = 189;
@@ -18,8 +18,8 @@ marenInput.tu = 74;
 marenInput.hu = 105;
 marenInput.alg = 67;
 marenInput.lg = 106;
-marenInput.bt1 = 34;
-marenInput.vl1 = 52;
+// marenInput.bt1 = 34;
+// marenInput.vl1 = 52;
 
 let input = marenInput;
 
@@ -41,8 +41,8 @@ let getValues = function () {
   values.hu = input.hu;
   values.alg = input.alg;
   values.lg = input.lg;
-  values.bt1 = input.bt1;
-  values.vl1 = input.vl1;
+  // values.bt1 = input.bt1;
+  // values.vl1 = input.vl1;
   return values;
 };
 
