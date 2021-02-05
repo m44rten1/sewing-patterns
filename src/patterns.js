@@ -15,8 +15,9 @@ let getPointsPatternBodice = function (values) {
   let offset = 0;
 
   // Explaining the structure of points in the code.
-  // On the reference in the book, the reference point is the top left of the page.
-  // TODO: finish sentence
+  // On the reference in the book, the reference point is the top right of the page.
+  // x in the book goes positive left, and y in the book goes positive down
+  // On the pdf, you start from the top left corner. x goes positive right and y goes positive down
 
   // points[x] = [x-value, y-value]
   // points[1] = [x-value of point 1, y-value of point 1]
