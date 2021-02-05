@@ -21,7 +21,17 @@ marenInput.lg = 106;
 // marenInput.bt1 = 34;
 // marenInput.vl1 = 52;
 
-let input = marenInput;
+let janeInput = {};
+janeInput.kh = 176;
+janeInput.bu = 96; // Needs to be between 80 and 146
+janeInput.tu = 74;
+janeInput.hu = 108;
+janeInput.alg = 64;
+janeInput.lg = 100;
+// marenInput.bt1 = 34;
+// marenInput.vl1 = 52;
+
+let input = janeInput;
 
 let getValues = function () {
   let values = {};

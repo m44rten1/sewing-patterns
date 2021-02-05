@@ -11,6 +11,7 @@ let bu30 = 146;
 //Then take the right value in the table. These values get added at the end of the calculation.
 
 let rh = function (bu) {
+  console.log("BU: ", bu);
   if (bu >= bu10 && bu < bu20) {
     return bu / 10 + 11;
   }

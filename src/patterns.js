@@ -14,6 +14,17 @@ let getPointsPatternBodice = function (values) {
 
   let offset = 0;
 
+  // Explaining the structure of points in the code.
+  // On the reference in the book, the reference point is the top left of the page.
+  // TODO: finish sentence
+
+  // points[x] = [x-value, y-value]
+  // points[1] = [x-value of point 1, y-value of point 1]
+  // x-value of point 1 = points[1][0] (-> start counting at '0'. '0' represents 'x' and '1' represents 'y')
+  // y-value of point 1 = points[1][1]
+  // y-value of point 2 = y-value of point 1 + values.rh
+  // y-value of point 2 = points[1][1] + values.rh
+
   points[1] = referencePoint;
   points[2] = [points[1][0], points[1][1] + values.rh];
   points[3] = [points[1][0], points[1][1] + values.rl];
@@ -323,7 +334,15 @@ let printPoints = function (points) {
 
 let drawPointLabels = function (doc, points) {
   for (let point in points) {
-    draw.drawPointLabel(doc, points[point], point);
+    draw.drawPointLabel(
+      doc,
+      points[point],
+      point +
+        ", x: " +
+        Math.round(points[point][0] - points[1][0]) +
+        ", y: " +
+        Math.round(points[point][1] - points[1][1])
+    );
   }
 };
 
